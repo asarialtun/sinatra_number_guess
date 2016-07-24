@@ -1,6 +1,26 @@
 require 'sinatra'
 require 'sinatra/reloader'
-goal = rand(101)
+number = rand(100)
+#@guess = ""
+@message = ""
+
+
 get '/' do
-  erb :index, :locals => {:goal => goal}
+
+  @guess = params["guess"].to_i if params["guess"]
+  message = construct_message(@guess,number) if @guess
+  erb :index, :locals => {:number => number, :guess => @guess,:message => message}
+
+end
+
+def construct_message(guess,number)
+  if guess > number
+    @message = "Too high!"
+  elsif guess < number
+    @message = "Too low!"
+  elsif guess == number
+    @message = "That's right!"
+  end
+
+  @message += "\n<br>The secret number is #{number}" if guess != number
 end
