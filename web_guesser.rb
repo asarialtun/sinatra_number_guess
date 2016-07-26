@@ -15,12 +15,22 @@ end
 
 def construct_message(guess,number)
   if guess > number
-    @message = "Too high!"
+    if guess-number >= 5
+      @message = "Way too high"
+    else
+      @message = "Too high!"
+    end
+    @message += "\n<br>The secret number is #{number}"
   elsif guess < number
-    @message = "Too low!"
+    if number - guess >= 5
+      @message = "Way too low"
+    else
+      @message = "Too low!"
+    end
+    @message += "\n<br>The secret number is #{number}"
   elsif guess == number
     @message = "That's right!"
   end
 
-  @message += "\n<br>The secret number is #{number}" if guess != number
+
 end
